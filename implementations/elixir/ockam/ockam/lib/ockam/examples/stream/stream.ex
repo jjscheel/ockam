@@ -7,7 +7,7 @@ defmodule Ockam.Examples.Stream do
   require Logger
 
   @tcp %Ockam.Transport.TCPAddress{ip: {127, 0, 0, 1}, port: 4000}
-  @service_route [@tcp, "stream_service"]
+  @service_route [@tcp, "kafka_stream_service"]
   @index_route [@tcp, "stream_index_service"]
 
   def run() do

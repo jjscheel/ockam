@@ -18,7 +18,7 @@ defmodule Ockam.Protocol.Stream.Index do
   #   index: uint
   # }
   def index_schema() do
-    {:struct, [client_id: :string, index: :uint, stream_name: :string]}
+    {:struct, [client_id: :string, index: {:optional, :uint}, stream_name: :string]}
   end
 
   # type IndexSave {

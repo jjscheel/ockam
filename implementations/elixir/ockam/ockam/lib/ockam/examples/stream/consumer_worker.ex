@@ -135,7 +135,10 @@ defmodule Ockam.Examples.Stream.ConsumerWorker do
 
   def request_messages(state) do
     next_request_id = :rand.uniform(1000)
-    start_index = Map.get(state, :index, 0) + 1
+    start_index = case Map.get(state, :index, :undefined) do
+      :undefined -> 0
+      num when is_integer(num) -> num + 1
+    end
     send_pull_request(start_index, @consume_limit, next_request_id, state)
   end
 
