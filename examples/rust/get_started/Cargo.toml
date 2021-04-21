@@ -5,7 +5,6 @@ authors = ["Ockam Developers"]
 edition = "2018"
 
 [dependencies]
-ockam = {path = "../../../implementations/rust/ockam/ockam"}
+ockam = {path = "../../../implementations/rust/ockam/ockam", features = ["software_vault"]}
 ockam_transport_tcp = {path = "../../../implementations/rust/ockam/ockam_transport_tcp"}
 ockam_vault = {path = "../../../implementations/rust/ockam/ockam_vault"}
-ockam_vault_sync_core = {path = "../../../implementations/rust/ockam/ockam_vault_sync_core"}

@@ -10,6 +10,13 @@ do
 done
 
 # TODO run more examples here
+pushd example_projects/channel>/dev/null || exit 1
+  cargo run --bin server
+popd >/dev/null || exit 1
+
+echo "WIP..."
+exit 666
+
 
 pushd example_projects/tcp >/dev/null || exit 1
 cargo run --example network_echo_server &

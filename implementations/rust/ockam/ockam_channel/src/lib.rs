@@ -27,7 +27,7 @@ mod tests {
     use crate::SecureChannel;
     use ockam_core::Route;
     use ockam_vault::SoftwareVault;
-    use ockam_vault_sync_core::Vault;
+    use ockam_vault_sync_core::InnerVault;
 
     #[test]
     fn simplest_channel() {
@@ -35,7 +35,7 @@ mod tests {
         executor
             .execute(async move {
                 let vault_address =
-                    Vault::create_with_inner(&ctx, SoftwareVault::default()).await?;
+                    InnerVault::create_with_inner(&ctx, SoftwareVault::default()).await?;
                 SecureChannel::create_listener(
                     &ctx,
                     "secure_channel_listener".to_string(),

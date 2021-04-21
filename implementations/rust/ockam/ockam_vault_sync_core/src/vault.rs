@@ -45,22 +45,23 @@ pub(crate) use response_message::*;
 
 /// A Worker that exposes a Vault API.
 #[derive(Zeroize)]
-pub struct Vault<V>
+pub struct InnerVault<V>
 where
     V: VaultTrait,
 {
     inner: V,
 }
 
-impl<V> Vault<V>
+impl<V> InnerVault<V>
 where
     V: VaultTrait,
 {
     /// Create a new VaultWorker.
-    fn new(inner: V) -> Self {
+    pub(crate) fn new(inner: V) -> Self {
         Self { inner }
     }
 
+    #[cfg(feature = "software_vault")]
     /// Start a VaultWorker.
     pub async fn create_with_inner(ctx: &Context, inner: V) -> Result<Address> {
         let address: Address = random();
@@ -167,7 +168,7 @@ where
 }
 
 #[async_trait]
-impl<V> Worker for Vault<V>
+impl<V> Worker for InnerVault<V>
 where
     V: VaultTrait,
 {

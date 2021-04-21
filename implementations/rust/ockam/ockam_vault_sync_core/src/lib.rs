@@ -26,6 +26,7 @@ mod vault_sync;
 mod verifier;
 
 pub use asymmetric_vault::*;
+use cfg_if::cfg_if;
 pub use error::*;
 pub use hasher::*;
 pub use key_id_vault::*;
@@ -36,10 +37,28 @@ pub use vault::*;
 pub use vault_sync::*;
 pub use verifier::*;
 
-#[cfg(feature = "software_vault")]
-impl Vault {
-    /// Start a Vault with SoftwareVault implementation.
-    pub async fn create(ctx: &Context) -> Result<Address> {
-        Self::create_with_inner(ctx, SoftwareVault::default()).await
+/// Secure storage for secrets.
+pub struct Vault {}
+
+cfg_if! {
+    if #[cfg(feature = "software_vault")] {
+        use ockam_node::*;
+        use ockam_core::Address;
+        use rand::random;
+        impl Vault {
+            /// Create a Vault worker backed by a SoftwareVault
+            #[allow(dead_code)]
+            pub async fn create(ctx: &Context) -> ockam_core::Result<Address> {
+                use ockam_vault::SoftwareVault;
+
+                let address: Address = random();
+
+                let vault = SoftwareVault::default();
+                InnerVault::create_with_inner(ctx, vault).await?;
+                println!("Started Vault at {}", &address);
+
+                Ok(address)
+            }
+        }
     }
 }

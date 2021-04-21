@@ -1,4 +1,4 @@
-use ockam::{Context, Result, Route, SecureChannel, SoftwareVault, Vault};
+use ockam::{Context, Result, Route, SecureChannel, Vault};
 use ockam_get_started::Echoer;
 
 #[ockam::node]
@@ -6,7 +6,7 @@ async fn main(mut ctx: Context) -> Result<()> {
     // Start the echoer worker.
     ctx.start_worker("echoer", Echoer).await?;
 
-    let vault_address = Vault::create(&ctx, SoftwareVault::default()).await?;
+    let vault_address = Vault::create(&ctx).await?;
 
     SecureChannel::create_listener(&mut ctx, "secure_channel_listener", &vault_address).await?;
 
