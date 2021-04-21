@@ -45,14 +45,14 @@ pub(crate) use response_message::*;
 
 /// A Worker that exposes a Vault API.
 #[derive(Zeroize)]
-pub struct InnerVault<V>
+pub struct VaultWorker<V>
 where
     V: VaultTrait,
 {
     inner: V,
 }
 
-impl<V> InnerVault<V>
+impl<V> VaultWorker<V>
 where
     V: VaultTrait,
 {
@@ -168,7 +168,7 @@ where
 }
 
 #[async_trait]
-impl<V> Worker for InnerVault<V>
+impl<V> Worker for VaultWorker<V>
 where
     V: VaultTrait,
 {

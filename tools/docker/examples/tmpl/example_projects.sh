@@ -9,13 +9,13 @@ do
   popd >/dev/null || exit 1
 done
 
-# TODO run more examples here
 pushd example_projects/channel>/dev/null || exit 1
-  cargo run --bin server
+  cargo run --bin server &
+  SERVER=$!
+  sleep 2
+  cargo run --bin client &
+  kill SERVER
 popd >/dev/null || exit 1
-
-echo "WIP..."
-exit 666
 
 
 pushd example_projects/tcp >/dev/null || exit 1

@@ -42,22 +42,15 @@ pub struct Vault {}
 
 cfg_if! {
     if #[cfg(feature = "software_vault")] {
-        use ockam_node::*;
+        use ockam_node::Context;
         use ockam_core::Address;
-        use rand::random;
         impl Vault {
             /// Create a Vault worker backed by a SoftwareVault
             #[allow(dead_code)]
             pub async fn create(ctx: &Context) -> ockam_core::Result<Address> {
                 use ockam_vault::SoftwareVault;
-
-                let address: Address = random();
-
                 let vault = SoftwareVault::default();
-                InnerVault::create_with_inner(ctx, vault).await?;
-                println!("Started Vault at {}", &address);
-
-                Ok(address)
+                VaultWorker::create_with_inner(ctx, vault).await
             }
         }
     }

@@ -10,7 +10,7 @@ async fn main(mut ctx: Context) -> Result<()> {
     let tcp = TcpTransport::create(&ctx).await?;
     tcp.connect(hub).await?;
 
-    let vault_address = Vault::create(&ctx, SoftwareVault::default()).await?;
+    let vault_address = Vault::create(&ctx).await?;
 
     let channel = SecureChannel::create(
         &mut ctx,

@@ -6,7 +6,7 @@ use ockam_transport_tcp::TcpTransport;
 async fn main(mut ctx: Context) -> Result<()> {
     let hub = "Paste the address of the node you created on Ockam Hub here.";
 
-    let vault_address = Vault::create(&ctx, SoftwareVault::default()).await?;
+    let vault_address = Vault::create(&ctx).await?;
 
     SecureChannel::create_listener(&mut ctx, "secure_channel", &vault_address).await?;
 

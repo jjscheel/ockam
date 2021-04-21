@@ -43,7 +43,7 @@ pub use ockam_core::{
     Worker,
 };
 
-pub use ockam_vault_sync_core::InnerVault;
+pub use ockam_vault_sync_core::VaultWorker;
 
 pub use ockam_channel::SecureChannel;
 

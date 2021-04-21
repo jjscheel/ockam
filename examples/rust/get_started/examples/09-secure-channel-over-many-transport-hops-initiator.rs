@@ -1,4 +1,4 @@
-use ockam::{Context, Result, Route, SecureChannel, SoftwareVault, Vault};
+use ockam::{Context, Result, Route, SecureChannel, Vault};
 use ockam_transport_tcp::{TcpTransport, TCP};
 
 #[ockam::node]
@@ -6,7 +6,7 @@ async fn main(mut ctx: Context) -> Result<()> {
     let tcp = TcpTransport::create(&ctx).await?;
     tcp.connect("127.0.0.1:4000").await?;
 
-    let vault_address = Vault::create(&ctx, SoftwareVault::default()).await?;
+    let vault_address = Vault::create(&ctx).await?;
 
     let route_to_listener = Route::new()
         .append_t(TCP, "127.0.0.1:4000") // middle node

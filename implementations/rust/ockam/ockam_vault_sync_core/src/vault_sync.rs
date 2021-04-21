@@ -1,4 +1,4 @@
-use crate::{InnerVault, ResultMessage, VaultRequestMessage, VaultResponseMessage, VaultTrait};
+use crate::{ResultMessage, VaultRequestMessage, VaultResponseMessage, VaultTrait, VaultWorker};
 use ockam_core::{Address, Result, Route};
 use ockam_node::{block_future, Context};
 use rand::random;
@@ -116,7 +116,7 @@ impl VaultSync {
     pub async fn create<T: VaultTrait>(ctx: &Context, vault: T) -> Result<Self> {
         let error_domain = vault.error_domain();
 
-        let vault_address = InnerVault::create_with_inner(ctx, vault).await?;
+        let vault_address = VaultWorker::create_with_inner(ctx, vault).await?;
 
         Self::create_with_worker(ctx, vault_address, error_domain).await
     }
